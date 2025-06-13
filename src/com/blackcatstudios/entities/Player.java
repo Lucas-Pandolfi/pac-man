@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.blackcatstudios.main.Game;
-import com.blackcatstudios.main.GameState;
 import com.blackcatstudios.world.World;
 
 public class Player extends Entity {

@@ -26,7 +26,6 @@ import com.blackcatstudios.entities.Entity;
 import com.blackcatstudios.entities.Player;
 import com.blackcatstudios.graphics.Spritesheet;
 import com.blackcatstudios.graphics.UI;
-import com.blackcatstudios.utils.Modal;
 import com.blackcatstudios.world.World;
 
 public class Game extends Canvas implements Runnable, KeyListener, MouseListener, MouseMotionListener {
@@ -51,9 +50,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static List<Enemy> enemiesOnMap;
 	public static Spritesheet spritesheet;
 	public static Font baseFont;
-	public InputStream streamFont = ClassLoader.getSystemClassLoader().getResourceAsStream("pixelfont.ttf");	
-	public static Modal saveModal = new Modal("Jogo salvo!", true, 750, 120, 40);
-	public static Modal noSaveGameFoundModal = new Modal("Nenhum save encontrado!", true, 850, 150, 40);
+	public InputStream streamFont = ClassLoader.getSystemClassLoader().getResourceAsStream("pixelfont.ttf");
 	public int mouseX, mouseY;
 	
 	public Game() {
@@ -140,11 +137,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	    
 	    graphics = bufferStrategy.getDrawGraphics();
 	    
-	    graphics.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);	    
-	    
-	    Game.saveModal.render(graphics);
-	    
-	    Game.noSaveGameFoundModal.render(graphics);
+	    graphics.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
 	    
 	    bufferStrategy.show();
 	}
