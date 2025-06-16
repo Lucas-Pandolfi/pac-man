@@ -25,14 +25,16 @@ public class Enemy extends Entity {
 	private boolean isDamaged = false;
 	private int damageFrames = 0, currentDamage = 0;
 	
-	public Enemy(int x, int y, int width, int height, int speed, BufferedImage sprite) {
-		super(x, y, width, height, speed, sprite);
+	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
+		super(x, y, width, height, null);
 		
 		getSprites();
 	}
 	
 	public void tick() {
-		/*if(this.calculateDistace(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 100) 
+		depth = 0;
+		
+		if(this.calculateDistace(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 100) 
 		{
 			Vector2i currentPlayerPos = new Vector2i((int)(Game.player.x / 16), (int)(Game.player.y / 16));
 	        Vector2i currentEnemyPos = new Vector2i((int)(x / 16), (int)(y / 16));
@@ -60,7 +62,26 @@ public class Enemy extends Entity {
 		
 		animation();
 		
-		damageAnimation();*/
+		damageAnimation();
+		
+		if(life <= 0) 
+		{
+			destroySelf();
+			return;
+		}
+	}
+	
+	public void takeDamage() {
+		isDamaged = true;
+		life--;
+	}
+	
+	private boolean enemyCollidingWithPlayer() {
+		Rectangle currentEnemy = new Rectangle(this.getX() + maskX, this.getY() + maskY, mWidth, mHeight);
+		
+		Rectangle player = new Rectangle(Game.player.getX(), Game.player.getY(), 16,  16);
+		
+		return currentEnemy.intersects(player);
 	}
 	
 	private void damageAnimation() {
@@ -73,6 +94,11 @@ public class Enemy extends Entity {
 				isDamaged = false;
 			}
 		}
+	}
+	
+	private void destroySelf() {
+		Game.entities.remove(this);
+		Game.enemiesOnMap.remove(this);
 	}
 	
 	private void getSprites() {
@@ -92,6 +118,14 @@ public class Enemy extends Entity {
 	}
 	
 	public void render(Graphics graphics) {	
+		if(!isDamaged)
+			graphics.drawImage(sprites[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+		else
+			graphics.drawImage(Entity.ENEMY_ENTITY_FEEDBACK, this.getX() - Camera.x, this.getY() - Camera.y, null);
 		
+		//Usado para visualizar a colisão do inimigos
+		/*super.render(graphics);
+		graphics.setColor(Color.blue);
+		graphics.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y, maskWidth, maskHeight);*/
 	}
 }

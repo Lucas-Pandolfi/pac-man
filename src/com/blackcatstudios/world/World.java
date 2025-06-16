@@ -2,6 +2,7 @@ package com.blackcatstudios.world;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,10 +23,6 @@ public class World {
 	public static int WIDTH, HEIGHT;
 	public static final int TILE_SIZE = 16;
 	public static int margin = 2;
-	public static boolean showMiniMap = false;
-	
-	public BufferedImage lightMap;
-	public int[] lightMapPixels;
 
 	public World(String path) {
 		try {
@@ -54,12 +51,12 @@ public class World {
 						Game.player.setX(xx * TILE_SIZE);
 						Game.player.setY(yy * TILE_SIZE);
 					}
-					/*else if(currentPixel == enemy) 
+					else if(currentPixel == enemy) 
 					{
 						Enemy enemy = new Enemy(xx * TILE_SIZE, yy * TILE_SIZE, TILE_SIZE, TILE_SIZE, Entity.ENEMY_ENTITY);
 						Game.entities.add(enemy);
 						Game.enemiesOnMap.add(enemy);
-					}*/
+					}
 				}
 			}
 		} catch (IOException e) {
@@ -84,29 +81,6 @@ public class World {
 	        }
 	    }
 	    return true;
-	}
-	
-	public static void restartGame(String level) {
-		Game.entities = new ArrayList<Entity>();
-		Game.enemiesOnMap = new ArrayList<Enemy>();
-		Game.spritesheet = new Spritesheet("/spritesheet.png");
-		Game.player = new Player(0, 0, 16, 16, 1, Game.spritesheet.getSprite(32, 0, 16, 16));
-		Game.entities.add(Game.player);
-		Game.world = new World("/" + level);
-		
-		return;
-	}
-	
-	public void getLightMap() {
-		try {
-			lightMap = ImageIO.read(getClass().getResource("/lightmap.png"));
-			
-			lightMapPixels = new int [lightMap.getWidth() * lightMap.getHeight()];
-			
-			lightMap.getRGB(0, 0, lightMap.getWidth(), lightMap.getHeight(), lightMapPixels, 0, lightMap.getWidth());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public boolean isSolidTile(int x, int y) {
