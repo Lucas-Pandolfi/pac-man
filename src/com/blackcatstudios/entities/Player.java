@@ -3,7 +3,6 @@ package com.blackcatstudios.entities;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import com.blackcatstudios.main.Game;
-import com.blackcatstudios.main.GameState;
 import com.blackcatstudios.world.Camera;
 import com.blackcatstudios.world.World;
 
@@ -38,9 +37,6 @@ public class Player extends Entity {
 		walk();
 		
 		damageAnimation();
-		
-		if(life <= 0)
-			Game.gameState = GameState.GAME_OVER;
 		
 		cameraClamp();
 	}
@@ -102,11 +98,11 @@ public class Player extends Entity {
 	
 	private void getSprites() {
 		for(int i = 0; i < rightPlayer.length; i++) {
-			rightPlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 0, width, height);			
+			rightPlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 0, width, height);			
 		}
 		
 		for(int i = 0; i < leftPlayer.length; i++) {
-			leftPlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 16, width, height);			
+			leftPlayer[i] = Game.spritesheet.getSprite(81 + (i * 16), 0, width, height);			
 		}
 		
 		playerDamage = Game.spritesheet.getSprite(0, 16, width, height);

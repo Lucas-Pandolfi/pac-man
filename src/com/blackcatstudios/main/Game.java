@@ -48,11 +48,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static World world;
 	public static Player player;
 	public static Random random;
-	public static int currentLevel = 1;
 	public static List<Entity> entities;
 	public static List<Enemy> enemiesOnMap;
 	public static Spritesheet spritesheet;
-	public static GameState gameState = GameState.MENU;
 	public static Font baseFont;
 	public InputStream streamFont = ClassLoader.getSystemClassLoader().getResourceAsStream("pixelfont.ttf");
 	
